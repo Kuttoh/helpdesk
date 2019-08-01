@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@section('title', 'Tickets')
-
 @section('content')
 
     <div class="container" style="margin-top: 10px">
@@ -24,7 +22,7 @@
                         <td>{{ $ticket->creator->firstname }}</td>
                         <td>{{ $ticket->creator->lastname }}</td>
                         <td>{{ $ticket->created_at }}</td>
-                        <td><a href="/tickets/". {{$ticket->path()}}><button type="submit" class="btn btn-outline-dark">View</button></a></td>
+                        <td><a href="/tickets/".{{$ticket->id}}><button type="submit" class="btn btn-outline-dark">View</button></a></td>
                     </tr>
                 @endforeach
                 </tbody>

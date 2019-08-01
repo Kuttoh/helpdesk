@@ -2,18 +2,22 @@
 
 namespace App\Repositories;
 
+
 use App\Ticket;
+use App\TicketType;
 
 class TicketRepository
 {
     public function orderedTickets()
     {
-        return Ticket::latest()->get();
+        return Ticket::latest()
+            ->with('replies')
+            ->get();
     }
 
     public function save($input)
     {
-        return Ticket::create($input);
+        return $this->create($input);
     }
 
     public function getTicketById($id)
@@ -34,4 +38,17 @@ class TicketRepository
 
         $ticket->delete();
     }
+
+//    public function getTickets(TicketType $type)
+//    {
+//        $tickets = Ticket::latest();
+//
+//        if ($type->exists) {
+//            $tickets->where('ticket_type_id', $type->id);
+//        }
+//
+//        $tickets = $tickets->get();
+//
+//        return $tickets;
+//    }
 }

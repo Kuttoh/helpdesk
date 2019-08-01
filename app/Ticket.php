@@ -6,9 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model
 {
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('replyCount', function ($builder) {
+            $builder->withCount('replies');
+        });
+    }
+
     public function path()
     {
-        return "/tickets/{$this->type->slug}/{$this->id}";
+        return "/tickets/{$this->id}";
     }
 
     public function type()
@@ -19,5 +29,11 @@ class Ticket extends Model
     public function creator()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
     }
 }

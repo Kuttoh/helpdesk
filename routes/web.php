@@ -20,3 +20,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/tickets', 'TicketsController@index');
+Route::get('/tickets/create', 'TicketsController@create');
+Route::post('/tickets', 'TicketsController@store');
+
+Route::get('/tickets/{ticket}', 'TicketsController@show');
+

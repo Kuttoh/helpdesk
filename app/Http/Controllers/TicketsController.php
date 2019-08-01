@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\TicketRepository;
-use App\Ticket;
+use App\TicketType;
 use Illuminate\Http\Request;
+use App\Ticket;
 
 class TicketsController extends Controller
 {
@@ -22,6 +23,7 @@ class TicketsController extends Controller
 
         $this->middleware('auth')->except('index', 'show');
     }
+
     public function index()
     {
         $tickets = $this->ticketRepository->orderedTickets();
@@ -36,7 +38,7 @@ class TicketsController extends Controller
      */
     public function create()
     {
-        //
+        return view('tickets.create');
     }
 
     /**
@@ -47,7 +49,7 @@ class TicketsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//
     }
 
     /**
@@ -56,9 +58,9 @@ class TicketsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Ticket $ticket)
     {
-        //
+        return view('tickets.show', compact('ticket'));
     }
 
     /**
