@@ -22,7 +22,7 @@
                         <td>{{ $ticket->creator->firstname }}</td>
                         <td>{{ $ticket->creator->lastname }}</td>
                         <td>{{ $ticket->created_at }}</td>
-                        <td><a href="/tickets/".{{$ticket->id}}><button type="submit" class="btn btn-outline-dark">View</button></a></td>
+                        <td><a href="/tickets/{{$ticket->id}}"><button type="submit" class="btn btn-outline-dark">View</button></a></td>
                     </tr>
                 @endforeach
                 </tbody>
