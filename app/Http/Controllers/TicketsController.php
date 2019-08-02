@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\TicketRepository;
+use App\User;
 use Illuminate\Http\Request;
 use App\Ticket;
 
@@ -99,5 +100,36 @@ class TicketsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function assign($id)
+    {
+        $users = User::all();
+
+        $ticket = Ticket::findOrFail($id);
+
+        return view('tickets.assign', compact(['users', 'ticket']));
+    }
+
+    /**
+     * @param Request $request
+     * @param $ticketId
+     */
+    public function storeAssign(Request $request, $ticketId)
+    {
+        $request = $request->all();
+
+        $this->ticketRepository->postAssign($request, $ticketId);
+
+        return redirect('tickets/'. $ticketId);
+    }
+
+    public function storeTake(Request $request, $ticketId)
+    {
+        $request = $request->all();
+
+        $this->ticketRepository->postTake($request, $ticketId);
+
+        return redirect('tickets/'. $ticketId);
     }
 }

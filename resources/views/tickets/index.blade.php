@@ -9,8 +9,7 @@
                 <thead class="thead-dark">
                 <tr>
                     <th scope="col">Type</th>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
+                    <th scope="col">Creator</th>
                     <th scope="col">Date Created</th>
                     <th scope="col">Action</th>
                 </tr>
@@ -19,8 +18,7 @@
                 @foreach($tickets as $ticket)
                     <tr>
                         <td>{{ $ticket->type->name }}</td>
-                        <td>{{ $ticket->creator->firstname }}</td>
-                        <td>{{ $ticket->creator->lastname }}</td>
+                        <td>{{ $ticket->creator->firstname }} {{ $ticket->creator->lastname }}</td>
                         <td>{{ $ticket->created_at }}</td>
                         <td>
                             <a href="{{$ticket->path()}}"><button type="submit" class="btn btn-outline-dark">View</button></a>

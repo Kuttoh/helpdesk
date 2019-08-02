@@ -15,14 +15,15 @@
                             <div class="form-group">
                                 <label for="user_id">Select User:</label>
                                 <select name="user_id" id="user_id" class="form-control" required>
-                                    <option value="">Choose One...</option>
-                                    @foreach($types as $type)
-                                        <option value="{{ $type->id}}" {{ old('ticket_type_id') == $type->id ? 'selected': '' }}>
-                                            {{ $type->slug }}
+                                    <option value="">Choose user...</option>
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id}}">
+                                            {{ $user->firstname }} {{ $user->lastname }}({{ $user->email }})
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
+                            <button type="submit" class="btn btn-outline-dark">Assign</button>
                         </form>
 
                     </div>

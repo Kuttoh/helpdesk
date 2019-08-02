@@ -6,10 +6,15 @@
         <h3>Ticket Details</h3>
         <div class="row just">
 
+
             <div class="col-md-8">
+
                 <div class="form-group">
-                    <a href="" class="btn btn-outline-dark">Assign</a>
-                    <a href="" class="btn btn-outline-dark">Take-Up</a>
+
+                    <a href="{{ $ticket->path(). '/assign' }}" class="btn btn-outline-dark">Assign</a>
+                    @if($ticket->assigned_to == null)
+                    <a href="{{ $ticket->path(). '/take' }}" class="btn btn-outline-dark">Take-Up</a>
+                    @endif
                     <a href="/tickets/{{ $ticket->id }}/edit" class="btn btn-outline-dark">Edit</a>
                 </div>
 
@@ -54,8 +59,8 @@
                 <div class="card" style="margin-bottom:10px">
                     <div class="card-header bg-info text-white">Ticket Information</div>
                     <div class="card-body">
-                        <p>Assigned to: {{ ($ticket->assignedTo)? $ticket->assignedTo->lastname: null}}</p>
-                        <p>Ticket Status: </p>
+                        <p>Assigned to: {{ ($ticket->assignedTo)? $ticket->assignedTo->firstname .' '. $ticket->assignedTo->lastname : null}}</p>
+                        <p>Ticket Status: {{ ($ticket->ticket_status_id)? $ticket->status->name : null}}</p>
                         <p>Created on: {{ $ticket->created_at }}</p>
                         <p>Created by: {{ $ticket->creator->firstname }} {{ $ticket->creator->lastname }} </p>
                         <p>No of
