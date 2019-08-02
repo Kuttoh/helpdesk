@@ -37,6 +37,7 @@
                     <form method="POST" action="{{ $ticket->path(). '/replies' }}">
                         {{ csrf_field() }}
                         <div class="form-group">
+{{--                            <input type="text" name="ticket_id" hidden value="{!! $ticket->id !!}" >--}}
                         <textarea name="body" id="body" rows="5" class="form-control"
                                   placeholder="Want to comment to this ticket?"></textarea>
                         </div>
@@ -54,6 +55,7 @@
                     <div class="card-header bg-info text-white">Ticket Information</div>
                     <div class="card-body">
                         <p>Assigned to: {{ ($ticket->assignedTo)? $ticket->assignedTo->lastname: null}}</p>
+                        <p>Ticket Status: </p>
                         <p>Created on: {{ $ticket->created_at }}</p>
                         <p>Created by: {{ $ticket->creator->firstname }} {{ $ticket->creator->lastname }} </p>
                         <p>No of

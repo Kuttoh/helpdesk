@@ -26,4 +26,4 @@ Route::get('/tickets/{ticket}', 'TicketsController@show');
 Route::get('/tickets/{ticket}/edit', 'TicketsController@edit');
 Route::post('/tickets/{ticket}/update', 'TicketsController@update');
 
-
+Route::post('/tickets/{ticket}/replies', 'RepliesController@store');

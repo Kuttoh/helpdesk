@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\TicketRepository;
-use App\TicketType;
 use Illuminate\Http\Request;
 use App\Ticket;
 

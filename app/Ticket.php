@@ -40,6 +40,11 @@ class Ticket extends Model
         return $this->hasMany(Reply::class);
     }
 
+    public function addReply($reply)
+    {
+        $this->replies()->create($reply);
+    }
+
     public function assignedTo()
     {
        return $this->belongsTo(User::class,'assigned_to');

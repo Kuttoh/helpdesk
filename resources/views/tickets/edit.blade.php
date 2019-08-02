@@ -24,10 +24,10 @@
 
                             <div class="form-group">
                                 <label for="ticket_type_id">Select Ticket Type:</label>
-                                <select name="ticket_type_id" id="ticket_type_id" class="form-control" required>
+                                <select value="{!! $ticket->ticket_type_id !!}" name="ticket_type_id" id="ticket_type_id" class="form-control" required>
                                     <option value="">Choose One...</option>
                                     @foreach($types as $type)
-                                        <option value="{{ $type->id}}" {{ old('ticket_type_id') == $type->id ? 'selected': '' }}>
+                                        <option value="{{ $type->id}}"{{ $type->id == $ticket->ticket_type_id ? 'selected="selected"' : '' }}>
                                             {{ $type->slug }}
                                         </option>
                                     @endforeach
