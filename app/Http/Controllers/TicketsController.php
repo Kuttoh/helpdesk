@@ -49,7 +49,9 @@ class TicketsController extends Controller
      */
     public function store(Request $request)
     {
-//
+        $ticket = $this->ticketRepository->save($request->all());
+
+        return redirect($ticket->path());
     }
 
     /**
@@ -69,9 +71,10 @@ class TicketsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Ticket $ticket)
     {
-        //
+        return view('tickets.edit', compact('ticket'));
+
     }
 
     /**
@@ -83,7 +86,9 @@ class TicketsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->ticketRepository->update($request->all(), $id);
+
+        return redirect('tickets');
     }
 
     /**

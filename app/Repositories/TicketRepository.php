@@ -17,7 +17,9 @@ class TicketRepository
 
     public function save($input)
     {
-        return $this->create($input);
+        $input['user_id'] = auth()->id();
+
+        return Ticket::create($input);
     }
 
     public function getTicketById($id)

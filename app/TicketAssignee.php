@@ -6,5 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class TicketAssignee extends Model
 {
-//
+    protected $table ='ticket_assignments';
+
+    protected $guarded =['id'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
 }

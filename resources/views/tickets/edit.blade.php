@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Create A New Ticket</div>
+                    <div class="card-header bg-dark text-white">Edit Ticket</div>
 
                     @if ($errors->any())
                         <div class="notification is-danger">
@@ -19,7 +19,7 @@
 
                     <div class="card-body">
 
-                        <form method="post" action="/tickets">
+                        <form method="post" action="{{ $ticket->path() }}/update">
                             {{ csrf_field() }}
 
                             <div class="form-group">
@@ -36,27 +36,26 @@
 
                             <div class="form-group">
                                 <label for="subject">Subject:</label>
-                                <input name="subject" type="text" class="form-control" id="subject"
-                                       value="{{ old('subject') }}" required>
+                                <input name="subject" type="text" class="form-control" id="subject" required value="{{ $ticket->subject }}">
                             </div>
 
                             <div class="form-group">
                                 <label for="body">Body:</label>
                                 <textarea class="form-control" id="body" name="body"
-                                          rows="8" required>{{ old('body') }}</textarea>
+                                          rows="8" required>{{ $ticket->body }}</textarea>
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-outline-dark">Create</button>
+                                <button type="submit" class="btn btn-outline-dark">Edit</button>
                             </div>
 
-{{--                            @if(count($errors))--}}
-{{--                                <ul class="alert alert-danger">--}}
-{{--                                    @foreach($errors->all() as $error)--}}
-{{--                                        <li>{{ $error }}</li>--}}
-{{--                                    @endforeach--}}
-{{--                                </ul>--}}
-{{--                            @endif--}}
+                            {{--                            @if(count($errors))--}}
+                            {{--                                <ul class="alert alert-danger">--}}
+                            {{--                                    @foreach($errors->all() as $error)--}}
+                            {{--                                        <li>{{ $error }}</li>--}}
+                            {{--                                    @endforeach--}}
+                            {{--                                </ul>--}}
+                            {{--                            @endif--}}
 
                         </form>
 

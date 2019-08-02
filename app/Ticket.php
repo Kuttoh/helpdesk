@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model
 {
+    protected $table ='tickets';
+
+    protected $guarded =['id'];
 
     protected static function boot()
     {
@@ -37,8 +40,8 @@ class Ticket extends Model
         return $this->hasMany(Reply::class);
     }
 
-    public function assignee()
+    public function assignedTo()
     {
-        $this->belongsTo(TicketAssignee::class);
+       return $this->belongsTo(User::class,'assigned_to');
     }
 }
