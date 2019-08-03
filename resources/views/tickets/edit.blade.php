@@ -7,17 +7,17 @@
                 <div class="card">
                     <div class="card-header bg-dark text-white">Edit Ticket</div>
 
-                    <div class="card-body">
+                    @if ($errors->any())
+                        <div class="notification is-danger">
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                    <li>{{$error}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
-                        @if ($errors->any())
-                            <div class="notification is-danger">
-                                <ul>
-                                    @foreach($errors->all() as $error)
-                                        <li>{{$error}}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
+                    <div class="card-body">
 
                         <form method="post" action="{{ $ticket->path() }}/update">
                             {{ csrf_field() }}

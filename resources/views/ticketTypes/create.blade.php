@@ -9,7 +9,7 @@
 
                     @if ($errors->any())
                         <div class="notification is-danger">
-                            <ul>
+                            <ul style="color: red">
                                 @foreach($errors->all() as $error)
                                     <li>{{$error}}</li>
                                 @endforeach
@@ -27,7 +27,6 @@
                                 <input name="name" type="text" class="form-control" id="name"
                                        value="{{ old('name') }}" required>
                             </div>
-
 
                             <div class="form-group">
                                 <button type="submit" class="btn btn-outline-dark">Create</button>

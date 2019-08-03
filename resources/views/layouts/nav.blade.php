@@ -16,6 +16,9 @@
                 <li class="nav-item">
                     <a href="/tickets/create" class="dropdown-item">Create New Ticket</a>
                 </li>
+                <li>
+                    <a href="/ticketTypes" class="dropdown-item">Ticket Types</a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Repositories\TicketTypeRepository;
+use App\TicketType;
 use Illuminate\Http\Request;
 
 class TicketTypesController extends Controller
@@ -47,6 +48,10 @@ class TicketTypesController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required|unique:ticket_types,name',
+        ]);
+
         $this->ticketTypeRepository->save($request->all());
 
         return redirect('/ticketTypes');
@@ -69,7 +74,7 @@ class TicketTypesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(TicketType $ticketType)
     {
         //
     }
@@ -83,7 +88,7 @@ class TicketTypesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**

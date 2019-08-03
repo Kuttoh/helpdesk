@@ -14,8 +14,6 @@ class TicketTypeRepository
 
     public function save($input)
     {
-//        unset($input['_token']);
-
         return TicketType::create($input);
     }
 
