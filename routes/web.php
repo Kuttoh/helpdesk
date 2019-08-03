@@ -35,4 +35,7 @@ Route::post('/tickets/{ticket}/assign', 'TicketsController@storeAssign');
 Route::get('/tickets/{ticket}/take', 'TicketsController@storeTake');
 Route::post('/tickets/{ticket}/update', 'TicketsController@update');
 
+Route::get('/tickets/{ticket}/closeStatus', 'TicketsController@closeStatus');
+Route::get('/tickets/{ticket}/openStatus', 'TicketsController@openStatus');
+
 Route::post('/tickets/{ticket}/replies', 'RepliesController@store');

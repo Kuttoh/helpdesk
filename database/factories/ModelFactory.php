@@ -24,9 +24,7 @@ use Faker\Generator as Faker;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
-        'role_id' => function () {
-            factory(Role::class)->create()->id;
-        },
+        'role_id' => 1,
         'firstname' => $faker->firstName,
         'lastname' => $faker->lastName,
         'email' => $faker->unique()->safeEmail,
@@ -44,9 +42,7 @@ $factory->define(Ticket::class, function ($faker) {
         'ticket_type_id' => function () {
             return factory(TicketType::class)->create()->id;
         },
-        'ticket_status_id' => function () {
-            return factory(TicketStatus::class)->create()->id;
-        },
+        'ticket_status_id' => 1,
         'subject' => $faker->sentence,
         'body' => $faker->paragraph,
     ];
@@ -89,16 +85,12 @@ $factory->define(TicketStatus::class, function ($faker) {
     ];
 });
 
-$factory->define(TicketAssignee::class, function ($faker) {
+$factory->define(TicketType::class, function ($faker) {
     return [
-        'user_id' => function () {
-            return factory(User::class)->create()->id;
-        },
-        'ticket_id' => function () {
-            return factory(Ticket::class)->create()->id;
-        },
+        'name' => $faker->word,
     ];
 });
+
 
 
 

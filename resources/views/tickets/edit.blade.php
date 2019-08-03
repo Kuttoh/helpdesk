@@ -7,17 +7,17 @@
                 <div class="card">
                     <div class="card-header bg-dark text-white">Edit Ticket</div>
 
-                    @if ($errors->any())
-                        <div class="notification is-danger">
-                            <ul>
-                                @foreach($errors->all() as $error)
-                                    <li>{{$error}}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
                     <div class="card-body">
+
+                        @if ($errors->any())
+                            <div class="notification is-danger">
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                        <li>{{$error}}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 
                         <form method="post" action="{{ $ticket->path() }}/update">
                             {{ csrf_field() }}
@@ -28,7 +28,7 @@
                                     <option value="">Choose One...</option>
                                     @foreach($types as $type)
                                         <option value="{{ $type->id}}"{{ $type->id == $ticket->ticket_type_id ? 'selected="selected"' : '' }}>
-                                            {{ $type->slug }}
+                                            {{ $type->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -48,14 +48,6 @@
                             <div class="form-group">
                                 <button type="submit" class="btn btn-outline-dark">Edit</button>
                             </div>
-
-                            {{--                            @if(count($errors))--}}
-                            {{--                                <ul class="alert alert-danger">--}}
-                            {{--                                    @foreach($errors->all() as $error)--}}
-                            {{--                                        <li>{{ $error }}</li>--}}
-                            {{--                                    @endforeach--}}
-                            {{--                                </ul>--}}
-                            {{--                            @endif--}}
 
                         </form>
 

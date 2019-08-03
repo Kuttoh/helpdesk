@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 use App\Ticket;
 use App\TicketType;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TicketRepository
@@ -72,6 +73,30 @@ class TicketRepository
         $ticket = $this->getTicketById($id);
 
         $ticket->update(['assigned_to' => auth()->id()]);
+
+        return redirect($ticket->path());
+    }
+
+    public function closeTicket($input, $id)
+    {
+        $ticket = $this->getTicketById($id);
+
+        $ticket->update([
+            'ticket_status_id' => 2,
+            'closed_at' => Carbon::now()
+            ]);
+
+        return redirect($ticket->path());
+    }
+
+    public function openTicket($input, $id)
+    {
+        $ticket = $this->getTicketById($id);
+
+        $ticket->update([
+            'ticket_status_id' => 1,
+            'updated_at' => Carbon::now()
+        ]);
 
         return redirect($ticket->path());
     }

@@ -11,6 +11,9 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
+                    <a href="/tickets" class="dropdown-item">All Tickets</a>
+                </li>
+                <li class="nav-item">
                     <a href="/tickets/create" class="dropdown-item">Create New Ticket</a>
                 </li>
             </ul>

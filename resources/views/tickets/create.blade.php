@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Create A New Ticket</div>
+                    <div class="card-header bg-dark text-white">Create A New Ticket</div>
 
                     @if ($errors->any())
                         <div class="notification is-danger">
@@ -28,7 +28,7 @@
                                     <option value="">Choose One...</option>
                                     @foreach($types as $type)
                                         <option value="{{ $type->id}}" {{ old('ticket_type_id') == $type->id ? 'selected': '' }}>
-                                            {{ $type->slug }}
+                                            {{ $type->name }}
                                         </option>
                                     @endforeach
                                 </select>

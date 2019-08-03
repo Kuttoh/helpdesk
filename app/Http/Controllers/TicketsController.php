@@ -132,4 +132,22 @@ class TicketsController extends Controller
 
         return redirect('tickets/'. $ticketId);
     }
+
+    public function closeStatus(Request $request, $ticketId)
+    {
+        $request = $request->all();
+
+        $this->ticketRepository->closeTicket($request, $ticketId);
+
+        return redirect('tickets/'. $ticketId);
+    }
+
+    public function openStatus(Request $request, $ticketId)
+    {
+        $request = $request->all();
+
+        $this->ticketRepository->openTicket($request, $ticketId);
+
+        return redirect('tickets/'. $ticketId);
+    }
 }

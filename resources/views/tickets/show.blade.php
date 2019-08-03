@@ -10,12 +10,26 @@
             <div class="col-md-8">
 
                 <div class="form-group">
-
-                    <a href="{{ $ticket->path(). '/assign' }}" class="btn btn-outline-dark">Assign</a>
-                    @if($ticket->assigned_to == null)
-                    <a href="{{ $ticket->path(). '/take' }}" class="btn btn-outline-dark">Take-Up</a>
+                    @if($ticket->ticket_status_id == 1)
+                        <a href="{{ $ticket->path(). '/assign' }}" class="btn btn-outline-dark">Assign</a>
+                        <a href="/tickets/{{ $ticket->id }}/edit" class="btn btn-outline-dark">Edit</a>
                     @endif
-                    <a href="/tickets/{{ $ticket->id }}/edit" class="btn btn-outline-dark">Edit</a>
+                    @if($ticket->assigned_to == null)
+                        @if($ticket->creator->id != auth()->id())
+                            <a href="{{ $ticket->path(). '/take' }}" class="btn btn-outline-dark">Take-Up</a>
+                        @endif
+                    @endif
+                    @if($ticket->ticket_status_id == 1)
+                        <a href="/tickets/{{ $ticket->id }}/closeStatus" class="btn btn-outline-dark">Close Ticket</a>
+                    @endif
+
+                    @if(auth()->check())
+                        @if($ticket->ticket_status_id == 2)
+                            <a href="/tickets/{{ $ticket->id }}/openStatus" class="btn btn-outline-dark">Re-Open
+                                Ticket</a>
+                        @endif
+                    @endif
+
                 </div>
 
                 <div class="card" style="margin-bottom:10px">
@@ -39,6 +53,7 @@
                 @endforeach
 
                 @if(auth()->check())
+                    @if($ticket->ticket_status_id == 1)
                     <form method="POST" action="{{ $ticket->path(). '/replies' }}">
                         {{ csrf_field() }}
                         <div class="form-group">
@@ -48,8 +63,9 @@
                         </div>
                         <button type="submit" class="btn btn-outline- text-white" style="background-color: #9561e2">Comment</button>
                     </form>
+                    @endif
                 @else
-                    <p class="text-center">Please <a href="{{ route('login') }}">Sign In</a> to comment on this ticket</p>
+                    <p class="text-center">Please <a href="{{ route('login') }}">Sign In</a> to re-open or comment on this ticket</p>
                 @endif
 
 
@@ -61,6 +77,9 @@
                     <div class="card-body">
                         <p>Assigned to: {{ ($ticket->assignedTo)? $ticket->assignedTo->firstname .' '. $ticket->assignedTo->lastname : null}}</p>
                         <p>Ticket Status: {{ ($ticket->ticket_status_id)? $ticket->status->name : null}}</p>
+                        @if($ticket->ticket_status_id == 2)
+                        <p>Closed on: {{ $ticket->updated_at}}</p>
+                        @endif
                         <p>Created on: {{ $ticket->created_at }}</p>
                         <p>Created by: {{ $ticket->creator->firstname }} {{ $ticket->creator->lastname }} </p>
                         <p>No of
