@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\TicketRepository;
+use App\TicketType;
 use App\User;
 use Illuminate\Http\Request;
 use App\Ticket;
@@ -26,6 +27,7 @@ class TicketsController extends Controller
 
     public function index()
     {
+
         $tickets = $this->ticketRepository->orderedTickets();
 
         return view('tickets.index', compact('tickets'));
@@ -38,7 +40,9 @@ class TicketsController extends Controller
      */
     public function create()
     {
-        return view('tickets.create');
+        $types = TicketType::all();
+
+        return view('tickets.create', compact('types'));
     }
 
     /**
@@ -73,7 +77,9 @@ class TicketsController extends Controller
      */
     public function edit(Ticket $ticket)
     {
-        return view('tickets.edit', compact('ticket'));
+        $types = TicketType::all();
+
+        return view('tickets.edit', compact(['ticket', 'types']));
 
     }
 

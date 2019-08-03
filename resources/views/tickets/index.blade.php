@@ -8,7 +8,7 @@
             <table class="table table-responsive-md table-striped">
                 <thead class="thead-dark">
                 <tr>
-                    <th scope="col">Type</th>
+                    <th scope="col">Type Name</th>
                     <th scope="col">Creator</th>
                     <th scope="col">Date Created</th>
                     <th scope="col">Action</th>
@@ -32,7 +32,5 @@
             </table>
         </div>
     </div>
-
-{{--    <a href="/projects/create"><button type="submit" class="button is-link">Create New</button></a>--}}
 
 @endsection
