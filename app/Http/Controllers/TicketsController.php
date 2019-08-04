@@ -65,9 +65,16 @@ class TicketsController extends Controller
      */
     public function show(Ticket $ticket)
     {
-        $user = User::findOrFail(auth()->id());
+        if (auth()->check() == true) {
 
-        return view('tickets.show', compact(['ticket', 'user']));
+            $user = User::findOrFail(auth()->id());
+
+            return view('tickets.show', compact(['ticket', 'user']));
+
+        } else {
+
+            return view('tickets.show', compact('ticket'));
+        }
     }
 
     /**
