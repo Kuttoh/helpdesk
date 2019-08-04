@@ -13,7 +13,7 @@ class TicketRepository
     public function orderedTickets()
     {
         return Ticket::latest()
-            ->with('replies')
+            ->with(['replies', 'creator'])
             ->get();
     }
 
@@ -63,6 +63,10 @@ class TicketRepository
 
         $userId = $input['user_id'];
 
+        if($ticket['user_id'] == $userId){
+            abort(403, 'This user cannot be assigned the ticket');
+        }
+
         $ticket->update(['assigned_to' => $userId]);
 
         return redirect($ticket->path());
@@ -71,6 +75,10 @@ class TicketRepository
     public function postTake($input, $id)
     {
         $ticket = $this->getTicketById($id);
+
+        if ($ticket['user_id'] == auth()->id()){
+            abort(403, 'Why would you want to take-up a ticket you created?');
+        }
 
         $ticket->update(['assigned_to' => auth()->id()]);
 
@@ -95,7 +103,8 @@ class TicketRepository
 
         $ticket->update([
             'ticket_status_id' => 1,
-            'updated_at' => Carbon::now()
+            'updated_at' => Carbon::now(),
+            'closed_at' => null,
         ]);
 
         return redirect($ticket->path());

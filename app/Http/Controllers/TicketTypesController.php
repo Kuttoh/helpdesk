@@ -25,6 +25,10 @@ class TicketTypesController extends Controller
 
     public function index()
     {
+        if ( auth()->user()->role_id != 2){
+            abort(401);
+        }
+
        $ticketTypes = $this->ticketTypeRepository->orderedTicketTypes();
 
         return view('ticketTypes.index', compact('ticketTypes'));

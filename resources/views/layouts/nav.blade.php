@@ -13,12 +13,16 @@
                 <li class="nav-item">
                     <a href="/tickets" class="dropdown-item">All Tickets</a>
                 </li>
-                <li class="nav-item">
-                    <a href="/tickets/create" class="dropdown-item">Create New Ticket</a>
-                </li>
-                <li>
-                    <a href="/ticketTypes" class="dropdown-item">Ticket Types</a>
-                </li>
+                @if(auth()->check())
+                    <li class="nav-item">
+                        <a href="/tickets/create" class="dropdown-item">Create New Ticket</a>
+                    </li>
+                    @if(Auth::user()->role_id == 2)
+                        <li>
+                            <a href="/ticketTypes" class="dropdown-item">Ticket Types</a>
+                        </li>
+                    @endif
+                @endif
             </ul>
 
             <!-- Right Side Of Navbar -->

@@ -27,7 +27,6 @@ class TicketsController extends Controller
 
     public function index()
     {
-
         $tickets = $this->ticketRepository->orderedTickets();
 
         return view('tickets.index', compact('tickets'));
@@ -77,6 +76,9 @@ class TicketsController extends Controller
      */
     public function edit(Ticket $ticket)
     {
+        if (auth()->user()->id != $ticket->user_id){
+            abort(403, 'You are not allowed to edit this ticket');
+        }
         $types = TicketType::all();
 
         return view('tickets.edit', compact(['ticket', 'types']));
@@ -110,6 +112,9 @@ class TicketsController extends Controller
 
     public function assign($id)
     {
+        if (auth()->user()->role_id != 2){
+            abort(401);
+        }
         $users = User::all();
 
         $ticket = Ticket::findOrFail($id);

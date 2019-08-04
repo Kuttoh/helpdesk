@@ -11,25 +11,23 @@
 
                 <div class="form-group">
                     @if($ticket->ticket_status_id == 1)
-                        <a href="{{ $ticket->path(). '/assign' }}" class="btn btn-outline-dark">Assign</a>
-                        <a href="/tickets/{{ $ticket->id }}/edit" class="btn btn-outline-dark">Edit</a>
-                    @endif
-                    @if($ticket->assigned_to == null)
-                        @if($ticket->creator->id != auth()->id())
-                            <a href="{{ $ticket->path(). '/take' }}" class="btn btn-outline-dark">Take-Up</a>
+                        @if(Auth::user()->role_id == 2)
+                            <a href="{{ $ticket->path(). '/assign' }}" class="btn btn-outline-dark">Assign</a>
                         @endif
+                        @if($ticket->creator->id == auth()->id())
+                            <a href="/tickets/{{ $ticket->id }}/edit" class="btn btn-outline-dark">Edit</a>
+                        @endif
+                    @endif
+                    @if($ticket->assigned_to == null and $ticket->creator->id != auth()->id())
+                            <a href="{{ $ticket->path(). '/take' }}" class="btn btn-outline-dark">Take-Up</a>
                     @endif
                     @if($ticket->ticket_status_id == 1)
                         <a href="/tickets/{{ $ticket->id }}/closeStatus" class="btn btn-outline-dark">Close Ticket</a>
                     @endif
-
-                    @if(auth()->check())
-                        @if($ticket->ticket_status_id == 2)
+                    @if(auth()->check() and $ticket->ticket_status_id == 2)
                             <a href="/tickets/{{ $ticket->id }}/openStatus" class="btn btn-outline-dark">Re-Open
                                 Ticket</a>
-                        @endif
                     @endif
-
                 </div>
 
                 <div class="card" style="margin-bottom:10px">
