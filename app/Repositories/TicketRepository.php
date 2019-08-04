@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 use App\Ticket;
 use App\TicketType;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -85,9 +86,20 @@ class TicketRepository
         return redirect($ticket->path());
     }
 
+
     public function closeTicket($input, $id)
     {
         $ticket = $this->getTicketById($id);
+
+        if (auth()->user()->role_id == 2 or $ticket['assigned_to'] == auth()->id()) {
+            $ticket->update([
+                'ticket_status_id' => 2,
+                'closed_at' => Carbon::now()
+            ]);
+        } else {
+            abort(403, 'You have no permission to close this ticket');
+
+        }
 
         $ticket->update([
             'ticket_status_id' => 2,

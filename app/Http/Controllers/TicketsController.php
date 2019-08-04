@@ -65,7 +65,9 @@ class TicketsController extends Controller
      */
     public function show(Ticket $ticket)
     {
-        return view('tickets.show', compact('ticket'));
+        $user = User::findOrFail(auth()->id());
+
+        return view('tickets.show', compact(['ticket', 'user']));
     }
 
     /**
