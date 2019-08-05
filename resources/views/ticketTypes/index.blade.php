@@ -22,7 +22,10 @@
                     <tr>
                         <td>{{ $ticketType->name }}</td>
                         <td>{{ $ticketType->created_at }}</td>
-                        <td><a class="btn btn-outline-info" href="{{ $ticketType->path() }}/edit">Edit</a></td>
+                        <td>
+                            <a class="btn btn-outline-info" href="{{ $ticketType->path() }}/edit">Edit</a>
+                            <a class="btn btn-outline-danger" href="{{ $ticketType->path() }}/delete">Delete</a>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

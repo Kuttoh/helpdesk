@@ -19,7 +19,7 @@
                                 <a href="/tickets/{{ $ticket->id }}/edit" class="btn btn-outline-dark">Edit</a>
                             @endif
                         @endif
-                        @if($ticket->assigned_to == null and $ticket->creator->id != $user->id)
+                        @if($ticket->assigned_to == null and $ticket->creator->id != $user->id and $ticket->ticket_status_id == 1)
                             <a href="{{ $ticket->path(). '/take' }}" class="btn btn-outline-dark">Take-Up</a>
                         @endif
                         @if($ticket->ticket_status_id == 1)

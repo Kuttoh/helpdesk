@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Repositories\TicketTypeRepository;
+use App\Ticket;
 use App\TicketType;
 use Illuminate\Http\Request;
 
@@ -103,6 +104,18 @@ class TicketTypesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (auth()->user()->role_id != 2) {
+            abort(401);
+        }
+
+        $typeTypeInUse = Ticket::where('ticket_type_id', $id)->first();
+
+        if ($typeTypeInUse){
+            abort (403, 'Ticket type in use');
+        }
+
+        $this->ticketTypeRepository->delete($id);
+
+        return redirect('ticketTypes');
     }
 }

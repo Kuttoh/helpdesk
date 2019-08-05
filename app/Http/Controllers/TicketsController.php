@@ -124,10 +124,14 @@ class TicketsController extends Controller
         if (auth()->user()->role_id != 2){
             abort(401);
         }
+
         $users = User::all();
 
         $ticket = Ticket::findOrFail($id);
 
+        if($ticket['ticket_status_id'] == 2){
+            abort(403, 'Ticket is already closed' );
+        }
         return view('tickets.assign', compact(['users', 'ticket']));
     }
 

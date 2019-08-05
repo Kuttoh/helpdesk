@@ -2,12 +2,8 @@
 
 namespace App\Repositories;
 
-
 use App\Ticket;
-use App\TicketType;
-use App\User;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class TicketRepository
 {
@@ -45,19 +41,6 @@ class TicketRepository
         $ticket->delete();
     }
 
-//    public function getTickets(TicketType $type)
-//    {
-//        $tickets = Ticket::latest();
-//
-//        if ($type->exists) {
-//            $tickets->where('ticket_type_id', $type->id);
-//        }
-//
-//        $tickets = $tickets->get();
-//
-//        return $tickets;
-//    }
-
     public function postAssign($input, $id)
     {
         $ticket = $this->getTicketById($id);
@@ -68,6 +51,10 @@ class TicketRepository
             abort(403, 'This user cannot be assigned the ticket');
         }
 
+        if($ticket['ticket_status_id'] == 2){
+            abort(403, 'Ticket is already closed' );
+        }
+
         $ticket->update(['assigned_to' => $userId]);
 
         return redirect($ticket->path());
@@ -76,6 +63,10 @@ class TicketRepository
     public function postTake($input, $id)
     {
         $ticket = $this->getTicketById($id);
+
+        if($ticket['ticket_status_id'] == 2){
+            abort(403, 'Ticket is already closed' );
+        }
 
         if ($ticket['user_id'] == auth()->id()){
             abort(403, 'Why would you want to take-up a ticket you created?');

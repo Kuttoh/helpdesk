@@ -44,4 +44,5 @@ Route::get('/ticketTypes', 'TicketTypesController@index');
 Route::get('/ticketTypes/create', 'TicketTypesController@create');
 Route::get('/ticketTypes/{ticketType}/edit', 'TicketTypesController@edit');
 Route::post('/ticketTypes/{ticketType}/update', 'TicketTypesController@update');
+Route::get('/ticketTypes/{ticketType}/delete', 'TicketTypesController@destroy');
 Route::post('/ticketTypes/store', 'TicketTypesController@store');
