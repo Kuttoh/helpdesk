@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\TicketCreated;
 use App\Repositories\TicketRepository;
 use App\Repositories\TicketTypeRepository;
-use App\TicketType;
-use App\User;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use App\Ticket;
 use Illuminate\Support\Facades\Mail;
@@ -19,13 +18,15 @@ class TicketsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    protected $ticketRepository, $ticketTypeRepository;
+    protected $ticketRepository, $ticketTypeRepository, $userRepository;
 
-    public function __construct(TicketRepository $ticketRepository, TicketTypeRepository $ticketTypeRepository)
+    public function __construct(TicketRepository $ticketRepository, TicketTypeRepository $ticketTypeRepository, UserRepository $userRepository)
     {
         $this->ticketRepository = $ticketRepository;
 
         $this->ticketTypeRepository = $ticketTypeRepository;
+
+        $this->userRepository = $userRepository;
 
         $this->middleware('auth')->except('index', 'show');
     }
@@ -44,7 +45,7 @@ class TicketsController extends Controller
      */
     public function create()
     {
-        $types = TicketType::all();
+        $types = $this->ticketTypeRepository->orderedTicketTypes();
 
         return view('tickets.create', compact('types'));
     }
@@ -76,7 +77,7 @@ class TicketsController extends Controller
     {
         if (auth()->check() == true) {
 
-            $user = User::findOrFail(auth()->id());
+            $user = $this->userRepository->getUserById(auth()->id());
 
             return view('tickets.show', compact(['ticket', 'user']));
 
@@ -135,7 +136,7 @@ class TicketsController extends Controller
             abort(401);
         }
 
-        $users = User::all();
+        $users = $this->userRepository->getAllUsers();
 
         $ticket = $this->ticketRepository->getTicketById($id);
 

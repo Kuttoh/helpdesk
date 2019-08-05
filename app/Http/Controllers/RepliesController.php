@@ -5,15 +5,12 @@ namespace App\Http\Controllers;
 use App\Mail\TicketRepliedTo;
 use App\Repositories\ReplyRepository;
 use App\Repositories\TicketRepository;
-use App\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class RepliesController extends Controller
 {
-    protected $replyRepository;
-
-    protected $ticketRepository;
+    protected $replyRepository, $ticketRepository;
 
     public function __construct(ReplyRepository $replyRepository, TicketRepository $ticketRepository)
     {
