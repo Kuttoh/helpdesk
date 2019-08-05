@@ -4,7 +4,7 @@
 {{ $ticket->body }}
 
 @component('mail::button', ['url' => 'http://helpdesk.appp/tickets/'. $ticket->id])
-View Ticket
+    View Ticket
 @endcomponent
 
 Thanks,<br>

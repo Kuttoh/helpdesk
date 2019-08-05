@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Mail\TicketAssigned;
+use App\Mail\TicketEdited;
 use App\Ticket;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
@@ -35,7 +36,9 @@ class TicketRepository
 
         $ticket->update($input);
 
-        
+        Mail::to('ithelpdesk@cytonn.com')->queue(
+            new TicketEdited($ticket)
+        );
     }
 
     public function delete($id)
