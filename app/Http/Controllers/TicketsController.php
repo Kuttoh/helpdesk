@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\TicketCreated;
 use App\Repositories\TicketRepository;
+use App\Repositories\TicketTypeRepository;
 use App\TicketType;
 use App\User;
 use Illuminate\Http\Request;
@@ -18,11 +19,13 @@ class TicketsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    protected $ticketRepository;
+    protected $ticketRepository, $ticketTypeRepository;
 
-    public function __construct(TicketRepository $ticketRepository)
+    public function __construct(TicketRepository $ticketRepository, TicketTypeRepository $ticketTypeRepository)
     {
         $this->ticketRepository = $ticketRepository;
+
+        $this->ticketTypeRepository = $ticketTypeRepository;
 
         $this->middleware('auth')->except('index', 'show');
     }
@@ -94,7 +97,8 @@ class TicketsController extends Controller
         if (auth()->user()->id != $ticket->user_id){
             abort(403, 'You are not allowed to edit this ticket');
         }
-        $types = TicketType::all();
+
+        $types = $this->ticketTypeRepository->orderedTicketTypes();
 
         return view('tickets.edit', compact(['ticket', 'types']));
 
@@ -133,7 +137,7 @@ class TicketsController extends Controller
 
         $users = User::all();
 
-        $ticket = Ticket::findOrFail($id);
+        $ticket = $this->ticketRepository->getTicketById($id);
 
         if($ticket['ticket_status_id'] == 2){
             abort(403, 'Ticket is already closed' );
