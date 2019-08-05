@@ -1,10 +1,12 @@
 @component('mail::message')
-# Introduction
+#This Ticket has been assigned
 
-The body of your message.
+## Subject: {{ $ticket->subject }}
 
-@component('mail::button', ['url' => ''])
-Button Text
+{{ $ticket->body }}
+
+@component('mail::button', ['url' => 'http://helpdesk.appp/tickets/'. $ticket->id])
+View Ticket
 @endcomponent
 
 Thanks,<br>

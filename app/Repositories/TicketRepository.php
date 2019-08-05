@@ -2,8 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Mail\TicketAssigned;
 use App\Ticket;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class TicketRepository
 {
@@ -32,6 +34,8 @@ class TicketRepository
         $ticket = $this->getTicketById($id);
 
         $ticket->update($input);
+
+        
     }
 
     public function delete($id)
@@ -47,15 +51,21 @@ class TicketRepository
 
         $userId = $input['user_id'];
 
-        if($ticket['user_id'] == $userId){
+        if ($ticket['user_id'] == $userId) {
             abort(403, 'This user cannot be assigned the ticket');
         }
 
-        if($ticket['ticket_status_id'] == 2){
-            abort(403, 'Ticket is already closed' );
+        if ($ticket['ticket_status_id'] == 2) {
+            abort(403, 'Ticket is already closed');
         }
 
         $ticket->update(['assigned_to' => $userId]);
+
+        Mail::to($ticket->assignedTo->email)
+            ->cc($ticket->creator->email)
+            ->queue(
+                new TicketAssigned($ticket)
+            );
 
         return redirect($ticket->path());
     }
@@ -73,6 +83,12 @@ class TicketRepository
         }
 
         $ticket->update(['assigned_to' => auth()->id()]);
+
+        Mail::to($ticket->assignedTo->email)
+            ->cc($ticket->creator->email)
+            ->queue(
+                new TicketAssigned($ticket)
+            );
 
         return redirect($ticket->path());
     }

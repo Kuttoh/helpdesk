@@ -56,8 +56,6 @@ class TicketsController extends Controller
     {
         $ticket = $this->ticketRepository->save($request->all());
 
-        dd($ticket);
-
         Mail::to('ithelpdesk@cytonn.com')->queue(
             new TicketCreated($ticket)
         );
