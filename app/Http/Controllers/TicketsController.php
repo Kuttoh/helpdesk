@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TicketCreated;
 use App\Repositories\TicketRepository;
 use App\TicketType;
 use App\User;
 use Illuminate\Http\Request;
 use App\Ticket;
+use Illuminate\Support\Facades\Mail;
 
 class TicketsController extends Controller
 {
@@ -53,6 +55,12 @@ class TicketsController extends Controller
     public function store(Request $request)
     {
         $ticket = $this->ticketRepository->save($request->all());
+
+        dd($ticket);
+
+        Mail::to('ithelpdesk@cytonn.com')->queue(
+            new TicketCreated($ticket)
+        );
 
         return redirect($ticket->path());
     }
