@@ -24,6 +24,9 @@
                         <li>
                             <a href="/ticketTypes" class="dropdown-item">Ticket Types</a>
                         </li>
+                        <li>
+                            <a href="/users" class="dropdown-item">Manage Users</a>
+                        </li>
                     @endif
                 @endif
             </ul>

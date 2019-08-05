@@ -8,7 +8,7 @@
                     <div class="card-header bg-dark text-white">Edit Ticket</div>
 
                     @if ($errors->any())
-                        <div class="notification is-danger">
+                        <div class="notification is-danger text-danger">
                             <ul>
                                 @foreach($errors->all() as $error)
                                     <li>{{$error}}</li>

@@ -16,4 +16,22 @@ class UserRepository
     {
         return User::findOrFail($id);
     }
+
+    public function update($input, $id)
+    {
+        $user = $this->getUserById($id);
+
+        $user->update($input);
+    }
+
+    public function postMakeEngineer($input, $id)
+    {
+        $user = $this->getUserById($id);
+
+        $user->update([
+            'role_id' => 2
+        ]);
+
+        return redirect('/users');
+    }
 }
