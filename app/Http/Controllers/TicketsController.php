@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\TicketClosed;
 use App\Mail\TicketCreated;
+use App\Mail\TicketOpened;
 use App\Repositories\TicketRepository;
 use App\Repositories\TicketTypeRepository;
 use App\Repositories\UserRepository;
@@ -190,6 +191,13 @@ class TicketsController extends Controller
         $request = $request->all();
 
         $this->ticketRepository->openTicket($request, $ticketId);
+
+        $ticket = $this->ticketRepository->getTicketById($ticketId);
+
+        Mail::to('ithelpdesk@cytonn.com')
+            ->queue(
+                new TicketOpened($ticket)
+            );
 
         return redirect('tickets/'. $ticketId);
     }
