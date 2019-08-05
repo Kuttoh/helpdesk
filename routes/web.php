@@ -42,4 +42,6 @@ Route::post('/tickets/{ticket}/replies', 'RepliesController@store');
 
 Route::get('/ticketTypes', 'TicketTypesController@index');
 Route::get('/ticketTypes/create', 'TicketTypesController@create');
+Route::get('/ticketTypes/{ticketType}/edit', 'TicketTypesController@edit');
+Route::post('/ticketTypes/{ticketType}/update', 'TicketTypesController@update');
 Route::post('/ticketTypes/store', 'TicketTypesController@store');

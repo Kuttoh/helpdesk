@@ -72,15 +72,13 @@ class TicketTypesController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(TicketType $ticketType)
     {
-        //
+        if (auth()->user()->role_id != 2) {
+            abort(401);
+        }
+        return view('ticketTypes.edit', compact('ticketType'));
     }
 
     /**
@@ -92,7 +90,9 @@ class TicketTypesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->ticketTypeRepository->update($request->all(), $id);
 
+        return redirect('ticketTypes');
     }
 
     /**

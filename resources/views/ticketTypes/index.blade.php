@@ -14,6 +14,7 @@
                 <tr>
                     <th scope="col">Type</th>
                     <th scope="col">Date Created</th>
+                    <th scope="col">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -21,6 +22,7 @@
                     <tr>
                         <td>{{ $ticketType->name }}</td>
                         <td>{{ $ticketType->created_at }}</td>
+                        <td><a class="btn btn-outline-info" href="{{ $ticketType->path() }}/edit">Edit</a></td>
                     </tr>
                 @endforeach
                 </tbody>

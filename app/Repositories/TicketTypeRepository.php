@@ -24,9 +24,9 @@ class TicketTypeRepository
 
     public function update($input, $id)
     {
-        $ticket = $this->getTicketTypeById($id);
+        $ticketType = $this->getTicketTypeById($id);
 
-        $ticket->update($input);
+        $ticketType->update($input);
     }
 
     public function delete($id)
