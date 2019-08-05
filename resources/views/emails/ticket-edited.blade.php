@@ -1,7 +1,10 @@
 @component('mail::message')
-## Subject: {{ $ticket->subject }}
 
-{{ $ticket->body }}
+<strong>Ticket Number:</strong> {{ $ticket->id }}
+
+<strong>Subject:</strong> {{ $ticket->subject }}
+
+<strong>Content:</strong> {{ $ticket->body }}
 
 @component('mail::button', ['url' => 'http://helpdesk.appp/tickets/'. $ticket->id])
     View Ticket

@@ -65,7 +65,7 @@ class TicketRepository
         $ticket->update(['assigned_to' => $userId]);
 
         Mail::to($ticket->assignedTo->email)
-            ->cc($ticket->creator->email)
+            ->cc([$ticket->creator->email, 'ithelpdesk@cytonn.com'])
             ->queue(
                 new TicketAssigned($ticket)
             );

@@ -3,14 +3,13 @@
 @section('content')
 
     <div class="container" style="margin-top: 10px">
+
         <h3>Ticket Details</h3>
         <div class="row just">
-
 
             <div class="col-md-8">
 
                 <div class="form-group">
-                    @if(auth()->check())
                         @if($ticket->ticket_status_id == 1)
                             @if($user->role_id == 2)
                                 <a href="{{ $ticket->path(). '/assign' }}" class="btn btn-outline-dark">Assign</a>
@@ -32,7 +31,6 @@
                             <a href="/tickets/{{ $ticket->id }}/openStatus" class="btn btn-outline-dark">Re-Open
                                 Ticket</a>
                         @endif
-                    @endif
                 </div>
 
                 <div class="card" style="margin-bottom:10px">
@@ -55,22 +53,22 @@
                     </div>
                 @endforeach
 
-                @if(auth()->check())
-                    @if($ticket->ticket_status_id == 1)
-                    <form method="POST" action="{{ $ticket->path(). '/replies' }}">
-                        {{ csrf_field() }}
-                        <div class="form-group">
-{{--                            <input type="text" name="ticket_id" hidden value="{!! $ticket->id !!}" >--}}
-                        <textarea name="body" id="body" rows="5" class="form-control"
-                                  placeholder="Want to comment to this ticket?"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-outline- text-white" style="background-color: #9561e2">Comment</button>
-                    </form>
-                    @endif
+                @if(empty($ticket->assignedTo))
+                    <p>Ticket has not yet been assigned</p>
                 @else
-                    <p class="text-center">Please <a href="{{ route('login') }}">Sign In</a> to re-open or comment on this ticket</p>
+                    @if($ticket->ticket_status_id == 1)
+                        <form method="POST" action="{{ $ticket->path(). '/replies' }}">
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                                    <textarea name="body" id="body" rows="5" class="form-control"
+                                              placeholder="Want to comment to this ticket?"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-outline- text-white"
+                                    style="background-color: #9561e2">Comment
+                            </button>
+                        </form>
+                    @endif
                 @endif
-
 
             </div>
 
@@ -102,8 +100,7 @@
 
             </div>
 
-
-
         </div>
+
     </div>
 @endsection

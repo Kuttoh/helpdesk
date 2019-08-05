@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TicketClosed;
 use App\Mail\TicketCreated;
 use App\Repositories\TicketRepository;
 use App\Repositories\TicketTypeRepository;
@@ -28,7 +29,7 @@ class TicketsController extends Controller
 
         $this->userRepository = $userRepository;
 
-        $this->middleware('auth')->except('index', 'show');
+        $this->middleware('auth');
     }
 
     public function index()
@@ -95,14 +96,13 @@ class TicketsController extends Controller
      */
     public function edit(Ticket $ticket)
     {
-        if (auth()->user()->id != $ticket->user_id){
+        if (auth()->user()->id != $ticket->user_id) {
             abort(403, 'You are not allowed to edit this ticket');
         }
 
         $types = $this->ticketTypeRepository->orderedTicketTypes();
 
         return view('tickets.edit', compact(['ticket', 'types']));
-
     }
 
     /**
@@ -132,7 +132,7 @@ class TicketsController extends Controller
 
     public function assign($id)
     {
-        if (auth()->user()->role_id != 2){
+        if (auth()->user()->role_id != 2) {
             abort(401);
         }
 
@@ -140,8 +140,8 @@ class TicketsController extends Controller
 
         $ticket = $this->ticketRepository->getTicketById($id);
 
-        if($ticket['ticket_status_id'] == 2){
-            abort(403, 'Ticket is already closed' );
+        if ($ticket['ticket_status_id'] == 2) {
+            abort(403, 'Ticket is already closed');
         }
         return view('tickets.assign', compact(['users', 'ticket']));
     }
@@ -174,7 +174,15 @@ class TicketsController extends Controller
 
         $this->ticketRepository->closeTicket($request, $ticketId);
 
-        return redirect('tickets/'. $ticketId);
+        $ticket = $this->ticketRepository->getTicketById($ticketId);
+
+        Mail::to($ticket->creator->email)
+            ->cc('ithelpdesk@cytonn.com')
+            ->queue(
+                new TicketClosed($ticket)
+            );
+
+        return redirect('tickets/' . $ticketId);
     }
 
     public function openStatus(Request $request, $ticketId)

@@ -1,7 +1,14 @@
 @component('mail::message')
-## Ticket Number: {{ $ticket->id }} has a comment
 
-Comment: {{ $reply->body }}
+<strong>Ticket Number:</strong> {{ $ticket->id }}
+
+<strong>Subject:</strong> {{ $ticket->subject }}
+
+<strong>Content:</strong> {{ $ticket->body }}
+
+<strong>Comment:</strong> {{ $reply->body }}
+
+<strong>Commented By:</strong> {{ $ticket->creator->firstname }} {{ $ticket->creator->lastname }}
 
 @component('mail::button', ['url' => 'http://helpdesk.appp/tickets/'. $ticket->id])
     View Ticket

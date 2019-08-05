@@ -6,10 +6,10 @@
 
 <strong>Content:</strong> {{ $ticket->body }}
 
-<strong>Assigned To:</strong> {{ $ticket->assignedTo->firstname }} {{ $ticket->assignedTo->lastname }}
+<strong>Closed by:</strong> {{ auth()->user()->firstname }} {{ auth()->user()->lastname }}
 
 @component('mail::button', ['url' => 'http://helpdesk.appp/tickets/'. $ticket->id])
-View Ticket
+    View Ticket
 @endcomponent
 
 Thanks,<br>
