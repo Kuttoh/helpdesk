@@ -25,9 +25,13 @@
                                 <button type="submit" class="btn btn-outline-info">Edit</button>
                             </a>
                             @if($user->role_id != 2)
-                            <a href="{{ $user->path() }}/makeEngineer">
-                                <button type="submit" class="btn btn-outline-danger">Make Engineer</button>
-                            </a>
+                                <a href="{{ $user->path() }}/makeEngineer">
+                                    <button type="submit" class="btn btn-outline-danger">Make Engineer</button>
+                                </a>
+                            @elseif($user->role_id == 2 and auth()->id() != $user->id)
+                                <a href="{{ $user->path() }}/makeUser">
+                                    <button type="submit" class="btn btn-outline-dark">Make User</button>
+                                </a>
                             @endif
                         </td>
                     </tr>

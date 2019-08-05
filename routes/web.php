@@ -50,3 +50,4 @@ Route::get('/users', 'UsersController@index');
 Route::get('/users/{user}/edit', 'UsersController@edit');
 Route::post('/users/{user}/update', 'UsersController@update');
 Route::get('/users/{user}/makeEngineer', 'UsersController@makeEngineer');
+Route::get('/users/{user}/makeUser', 'UsersController@makeUser');

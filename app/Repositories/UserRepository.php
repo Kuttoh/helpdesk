@@ -34,4 +34,15 @@ class UserRepository
 
         return redirect('/users');
     }
+
+    public function postMakeUser($input, $id)
+    {
+        $user = $this->getUserById($id);
+
+        $user->update([
+            'role_id' => 1
+        ]);
+
+        return redirect('/users');
+    }
 }

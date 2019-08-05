@@ -117,4 +117,17 @@ class UsersController extends Controller
 
         return redirect('/users');
     }
+
+    public function makeUser(Request $request, $userId)
+    {
+        if (auth()->user()->role_id != 2){
+            abort(401);
+        }
+
+        $request = $request->all();
+
+        $this->userRepository->postMakeUser($request, $userId);
+
+        return redirect('/users');
+    }
 }
