@@ -20,7 +20,7 @@ class TicketRepository
     public function save($input)
     {
         $input['user_id'] = auth()->id();
-        $input['ticket_status_id'] = 1;
+        $input['ticket_status_id'] = 1; //Open Ticket (Default)
 
         return Ticket::create($input);
     }
@@ -62,7 +62,10 @@ class TicketRepository
             abort(403, 'Ticket is already closed');
         }
 
-        $ticket->update(['assigned_to' => $userId]);
+        $ticket->update([
+            'assigned_to' => $userId,
+            'ticket_status_id' => 3, // In Progress Ticket
+        ]);
 
         Mail::to($ticket->assignedTo->email)
             ->cc([$ticket->creator->email, 'ithelpdesk@cytonn.com'])
@@ -85,7 +88,10 @@ class TicketRepository
             abort(403, 'Why would you want to take-up a ticket you created?');
         }
 
-        $ticket->update(['assigned_to' => auth()->id()]);
+        $ticket->update([
+            'assigned_to' => auth()->id(),
+            'ticket_status_id' => 3
+            ]);
 
         Mail::to($ticket->assignedTo->email)
             ->cc($ticket->creator->email)
@@ -103,7 +109,7 @@ class TicketRepository
 
         if (auth()->user()->role_id == 2 or $ticket['assigned_to'] == auth()->id()) {
             $ticket->update([
-                'ticket_status_id' => 2,
+                'ticket_status_id' => 2, //Closed Ticket
                 'closed_at' => Carbon::now()
             ]);
         } else {
@@ -125,6 +131,7 @@ class TicketRepository
 
         $ticket->update([
             'ticket_status_id' => 1,
+            'assigned_to' => null,
             'updated_at' => Carbon::now(),
             'closed_at' => null,
         ]);

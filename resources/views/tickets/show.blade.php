@@ -10,7 +10,7 @@
             <div class="col-md-8">
 
                 <div class="form-group">
-                        @if($ticket->ticket_status_id == 1)
+                        @if($ticket->ticket_status_id != 2)
                             @if($user->role_id == 2)
                                 <a href="{{ $ticket->path(). '/assign' }}" class="btn btn-outline-dark">Assign</a>
                             @endif
@@ -18,10 +18,10 @@
                                 <a href="/tickets/{{ $ticket->id }}/edit" class="btn btn-outline-dark">Edit</a>
                             @endif
                         @endif
-                        @if($ticket->assigned_to == null and $ticket->creator->id != $user->id and $ticket->ticket_status_id == 1)
+                        @if($ticket->assigned_to == null and $ticket->creator->id != $user->id and $ticket->ticket_status_id != 2)
                             <a href="{{ $ticket->path(). '/take' }}" class="btn btn-outline-dark">Take-Up</a>
                         @endif
-                        @if($ticket->ticket_status_id == 1)
+                        @if($ticket->ticket_status_id != 2)
                             @if($ticket->assigned_to == $user->id or $ticket->creator->id == $user->id or $user->role_id == 2)
                                 <a href="/tickets/{{ $ticket->id }}/closeStatus" class="btn btn-outline-dark">Close
                                     Ticket</a>
@@ -56,7 +56,7 @@
                 @if(empty($ticket->assignedTo))
                     <p>Ticket has not yet been assigned</p>
                 @else
-                    @if($ticket->ticket_status_id == 1)
+                    @if($ticket->ticket_status_id != 2)
                         <form method="POST" action="{{ $ticket->path(). '/replies' }}">
                             {{ csrf_field() }}
                             <div class="form-group">

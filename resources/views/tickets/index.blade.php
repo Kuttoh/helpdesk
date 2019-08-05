@@ -22,7 +22,7 @@
                         <td>{{ $ticket->created_at }}</td>
                         <td>
                             <a href="{{$ticket->path()}}"><button type="submit" class="btn btn-outline-dark">View</button></a>
-                            @if($ticket->ticket_status_id == 1 and $ticket->creator->id == auth()->id())
+                            @if($ticket->ticket_status_id != 2 and $ticket->creator->id == auth()->id())
                             <a href="{{$ticket->path()}}/edit"><button type="submit" class="btn btn-outline-info">Edit</button></a>
                             @endif
                         </td>

@@ -6,6 +6,8 @@
 
 <strong>Content:</strong> {{ $ticket->body }}
 
+<strong>Edited By:</strong> {{ $ticket->creator->firstname }} {{ $ticket->creator->lastname }}
+
 @component('mail::button', ['url' => 'http://helpdesk.appp/tickets/'. $ticket->id])
     View Ticket
 @endcomponent
