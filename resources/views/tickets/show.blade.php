@@ -3,34 +3,31 @@
 @section('content')
 
     <div class="container" style="margin-top: 10px">
-
         <h3>Ticket Details</h3>
         <div class="row just">
-
             <div class="col-md-8">
-
                 <div class="form-group">
-                        @if($ticket->ticket_status_id != 2)
-                            @if($user->role_id == 2)
-                                <a href="{{ $ticket->path(). '/assign' }}" class="btn btn-outline-dark">Assign</a>
-                            @endif
-                            @if($ticket->creator->id == $user->id)
-                                <a href="/tickets/{{ $ticket->id }}/edit" class="btn btn-outline-dark">Edit</a>
-                            @endif
+                    @if($ticket->ticket_status_id != 2)
+                        @if($user->role_id == 2)
+                            <a href="{{ $ticket->path(). '/assign' }}" class="btn btn-outline-dark">Assign</a>
                         @endif
-                        @if($ticket->assigned_to == null and $ticket->creator->id != $user->id and $ticket->ticket_status_id != 2)
-                            <a href="{{ $ticket->path(). '/take' }}" class="btn btn-outline-dark">Take-Up</a>
+                        @if($ticket->creator->id == $user->id)
+                            <a href="/tickets/{{ $ticket->id }}/edit" class="btn btn-outline-dark">Edit</a>
                         @endif
-                        @if($ticket->ticket_status_id != 2)
-                            @if($ticket->assigned_to == $user->id or $ticket->creator->id == $user->id or $user->role_id == 2)
-                                <a href="/tickets/{{ $ticket->id }}/closeStatus" class="btn btn-outline-dark">Close
-                                    Ticket</a>
-                            @endif
-                        @endif
-                        @if($ticket->ticket_status_id == 2)
-                            <a href="/tickets/{{ $ticket->id }}/openStatus" class="btn btn-outline-dark">Re-Open
+                    @endif
+                    @if($ticket->assigned_to == null and $ticket->creator->id != $user->id and $ticket->ticket_status_id != 2)
+                        <a href="{{ $ticket->path(). '/take' }}" class="btn btn-outline-dark">Take-Up</a>
+                    @endif
+                    @if($ticket->ticket_status_id != 2)
+                        @if($ticket->assigned_to == $user->id or $ticket->creator->id == $user->id or $user->role_id == 2)
+                            <a href="/tickets/{{ $ticket->id }}/closeStatus" class="btn btn-outline-dark">Close
                                 Ticket</a>
                         @endif
+                    @endif
+                    @if($ticket->ticket_status_id == 2)
+                        <a href="/tickets/{{ $ticket->id }}/openStatus" class="btn btn-outline-dark">Re-Open
+                            Ticket</a>
+                    @endif
                 </div>
 
                 <div class="card" style="margin-bottom:10px">
@@ -69,7 +66,6 @@
                         </form>
                     @endif
                 @endif
-
             </div>
 
             <div class="col-md-4">
@@ -89,18 +85,15 @@
                 </div>
 
                 @if(auth()->check())
-                <div class="card" style="margin-bottom:10px">
-                    <div class="card-header bg-info text-white">Creator Information</div>
-                    <div class="card-body">
-                        <p>Name: {{ $ticket->creator->firstname }} {{ $ticket->creator->lastname }} </p>
-                        <p>Email: {{ $ticket->creator->email }}</p>
+                    <div class="card" style="margin-bottom:10px">
+                        <div class="card-header bg-info text-white">Creator Information</div>
+                        <div class="card-body">
+                            <p>Name: {{ $ticket->creator->firstname }} {{ $ticket->creator->lastname }} </p>
+                            <p>Email: {{ $ticket->creator->email }}</p>
+                        </div>
                     </div>
-                </div>
                 @endif
-
             </div>
-
         </div>
-
     </div>
 @endsection

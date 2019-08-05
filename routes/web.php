@@ -25,6 +25,8 @@ Route::get('/', 'TicketsController@index');
 Route::get('/home', 'TicketsController@index');
 Route::get('/tickets', 'TicketsController@index');
 
+Route::get('/tickets/mine', 'TicketsController@mine');
+
 Route::get('/tickets/create', 'TicketsController@create');
 Route::post('/tickets', 'TicketsController@store');
 Route::get('/tickets/{ticket}', 'TicketsController@show');

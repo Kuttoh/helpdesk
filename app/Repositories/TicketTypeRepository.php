@@ -7,7 +7,7 @@ use App\TicketType;
 class TicketTypeRepository
 {
 
-    public function orderedTicketTypes()
+    public function getAllTicketTypes()
     {
         return TicketType::all();
     }

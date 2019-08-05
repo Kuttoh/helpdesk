@@ -37,7 +37,7 @@ class TicketsController extends Controller
     {
         $tickets = $this->ticketRepository->orderedTickets();
 
-        return view('tickets.index', compact('tickets'));
+        return view('tickets.index',  compact('tickets'));
     }
 
     /**
@@ -47,7 +47,7 @@ class TicketsController extends Controller
      */
     public function create()
     {
-        $types = $this->ticketTypeRepository->orderedTicketTypes();
+        $types = $this->ticketTypeRepository->getAllTicketTypes();
 
         return view('tickets.create', compact('types'));
     }
@@ -101,7 +101,7 @@ class TicketsController extends Controller
             abort(403, 'You are not allowed to edit this ticket');
         }
 
-        $types = $this->ticketTypeRepository->orderedTicketTypes();
+        $types = $this->ticketTypeRepository->getAllTicketTypes();
 
         return view('tickets.edit', compact(['ticket', 'types']));
     }
@@ -200,5 +200,12 @@ class TicketsController extends Controller
             );
 
         return redirect('tickets/'. $ticketId);
+    }
+
+    public function mine()
+    {
+        $tickets = $this->ticketRepository->myAssignedTickets();
+
+        return view('tickets.mine', compact('tickets'));
     }
 }

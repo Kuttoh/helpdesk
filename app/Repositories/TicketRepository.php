@@ -12,15 +12,23 @@ class TicketRepository
 {
     public function orderedTickets()
     {
-        return Ticket::latest()
-            ->with(['replies', 'creator'])
-            ->get();
+        if (auth()->user()->role_id != 2) {
+            return Ticket::where('user_id', auth()->id())->latest()->get();
+
+        } else {
+            return Ticket::latest()->get();
+        }
+    }
+
+    public function myAssignedTickets()
+    {
+        return Ticket::where('assigned_to', auth()->id())->latest()->get();
     }
 
     public function save($input)
     {
         $input['user_id'] = auth()->id();
-        $input['ticket_status_id'] = 1; //Open Ticket (Default)
+        $input['ticket_status_id'] = 1; //Open Ticket (Default Status)
 
         return Ticket::create($input);
     }

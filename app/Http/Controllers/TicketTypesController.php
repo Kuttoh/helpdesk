@@ -30,7 +30,7 @@ class TicketTypesController extends Controller
             abort(401);
         }
 
-       $ticketTypes = $this->ticketTypeRepository->orderedTicketTypes();
+       $ticketTypes = $this->ticketTypeRepository->getAllTicketTypes();
 
         return view('ticketTypes.index', compact('ticketTypes'));
     }

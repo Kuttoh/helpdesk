@@ -12,7 +12,10 @@
             <ul class="navbar-nav mr-auto">
                 @if(auth()->check())
                     <li class="nav-item">
-                        <a href="/tickets" class="dropdown-item">All Tickets</a>
+                        <a href="/tickets" class="dropdown-item">Tickets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/tickets/mine" class="dropdown-item">My Assigned Tickets</a>
                     </li>
                     <li class="nav-item">
                         <a href="/tickets/create" class="dropdown-item">Create New Ticket</a>
