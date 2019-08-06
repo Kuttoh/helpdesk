@@ -9,7 +9,7 @@ class UserRepository
 {
     public function getAllUsers()
     {
-        return User::all();
+        return User::paginate(9);
     }
 
     public function getUserById($id)

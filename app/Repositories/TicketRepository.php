@@ -13,16 +13,16 @@ class TicketRepository
     public function orderedTickets()
     {
         if (auth()->user()->role_id != 2) {
-            return Ticket::where('user_id', auth()->id())->latest()->get();
+            return Ticket::where('user_id', auth()->id())->latest()->paginate(9);
 
         } else {
-            return Ticket::latest()->get();
+            return Ticket::latest()->paginate(9);
         }
     }
 
     public function myAssignedTickets()
     {
-        return Ticket::where('assigned_to', auth()->id())->latest()->get();
+        return Ticket::where('assigned_to', auth()->id())->latest()->paginate(9);
     }
 
     public function save($input)

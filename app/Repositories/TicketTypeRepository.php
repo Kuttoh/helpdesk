@@ -9,7 +9,7 @@ class TicketTypeRepository
 
     public function getAllTicketTypes()
     {
-        return TicketType::all();
+        return TicketType::Paginate(9);
     }
 
     public function save($input)

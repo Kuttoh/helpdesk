@@ -29,6 +29,7 @@
                 @endforeach
                 </tbody>
             </table>
+            {{ $tickets->links() }}
         </div>
     </div>
 
