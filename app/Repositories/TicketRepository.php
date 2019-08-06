@@ -96,6 +96,10 @@ class TicketRepository
             abort(403, 'Why would you want to take-up a ticket you created?');
         }
 
+        if (auth()->user()->role_id != 2){
+            abort(403, 'You cannot take-up a ticket');
+        }
+
         $ticket->update([
             'assigned_to' => auth()->id(),
             'ticket_status_id' => 3
