@@ -63,11 +63,15 @@ class TicketRepository
         $userId = $input['user_id'];
 
         if ($ticket['user_id'] == $userId) {
-            abort(403, 'This user cannot be assigned the ticket');
+            return redirect($ticket->path())
+                ->with('message', 'This user cannot be assigned the ticket')
+                ->with('type', 'warning');
         }
 
         if ($ticket['ticket_status_id'] == 2) {
-            abort(403, 'Ticket is already closed');
+            return redirect( $ticket->path())
+                ->with('message', 'Ticket is already closed')
+                ->with('type', 'danger');
         }
 
         $ticket->update([
@@ -81,7 +85,7 @@ class TicketRepository
                 new TicketAssigned($ticket)
             );
 
-        return redirect($ticket->path());
+        return redirect($ticket->path())->with('type', 'success')->with('message', 'Assigned Successfully!');
     }
 
     public function postTake($input, $id)
@@ -89,15 +93,21 @@ class TicketRepository
         $ticket = $this->getTicketById($id);
 
         if($ticket['ticket_status_id'] == 2){
-            abort(403, 'Ticket is already closed' );
+            return redirect( $ticket->path())
+                ->with('message', 'Ticket is already closed')
+                ->with('type', 'danger');
         }
 
         if ($ticket['user_id'] == auth()->id()){
-            abort(403, 'Why would you want to take-up a ticket you created?');
+            return redirect( $ticket->path())
+                ->with('message', 'Why would you want to take-up a ticket you created?')
+                ->with('type', 'warning');
         }
 
         if (auth()->user()->role_id != 2){
-            abort(403, 'You cannot take-up a ticket');
+            return redirect( $ticket->path())
+                ->with('message', 'Access Denied')
+                ->with('type', 'danger');
         }
 
         $ticket->update([
@@ -111,7 +121,7 @@ class TicketRepository
                 new TicketAssigned($ticket)
             );
 
-        return redirect($ticket->path());
+        return redirect($ticket->path())->with('type', 'success')->with('message', 'Successfully assigned to you!');
     }
 
 
@@ -125,8 +135,7 @@ class TicketRepository
                 'closed_at' => Carbon::now()
             ]);
         } else {
-            abort(403, 'You have no permission to close this ticket');
-
+            return redirect( $ticket->path())->with('message', 'Access Denied')->with('type', 'danger');
         }
 
         $ticket->update([
@@ -134,7 +143,7 @@ class TicketRepository
             'closed_at' => Carbon::now()
             ]);
 
-        return redirect($ticket->path());
+        return redirect($ticket->path())->with('type', 'success')->with('message', 'Closed Successfully!');
     }
 
     public function openTicket($input, $id)
@@ -148,6 +157,6 @@ class TicketRepository
             'closed_at' => null,
         ]);
 
-        return redirect($ticket->path());
+        return redirect($ticket->path())->with('type', 'success')->with('message', 'Re-Opened Successfully!');
     }
 }

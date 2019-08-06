@@ -9,11 +9,6 @@
 
     <title>{{ config('app.name', 'Helpdesk') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -22,13 +17,15 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <main class="py-4">
 
-            @include('layouts.nav')
-            @yield('content')
-        </main>
-    </div>
-{{--    <script> $(document).foundation(); </script>--}}
+<div id="app">
+
+        @include('layouts.nav')
+        @yield('content')
+    <flash message="{{session('message')}}" type="{{session('type')}}"></flash>
+</div>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

@@ -28,7 +28,7 @@ class UsersController extends Controller
     public function index()
     {
         if(auth()->user()->role_id != 2){
-            abort(401);
+            return redirect('/tickets')->with('type', 'danger')->with('message', 'Access Denied');
         }
 
         $allUsers = $this->userRepository->getAllUsers();
@@ -71,7 +71,7 @@ class UsersController extends Controller
     public function edit(User $user)
     {
         if (auth()->user()->role_id != 2){
-            abort(401);
+            return redirect('/tickets')->with('type', 'danger')->with('message', 'Access Denied');
         }
 
         return view('users.edit', compact('user'));
@@ -94,7 +94,7 @@ class UsersController extends Controller
 
         $this->userRepository->update($request->all(), $id);
 
-        return redirect('/users');
+        return redirect('/users')->with('type', 'success')->with('message', 'User details updated!');
     }
 
     /**
@@ -111,7 +111,7 @@ class UsersController extends Controller
     public function makeEngineer(Request $request, $userId)
     {
         if (auth()->user()->role_id != 2){
-            abort(401);
+            return redirect('/tickets')->with('type', 'danger')->with('message', 'Access Denied');
         }
 
         $request = $request->all();
@@ -120,13 +120,13 @@ class UsersController extends Controller
 
         $this->sendRoleMail($userId);
 
-        return redirect('/users');
+        return redirect('/users')->with('type', 'success')->with('message', 'User is now Engineer!');
     }
 
     public function makeUser(Request $request, $userId)
     {
         if (auth()->user()->role_id != 2){
-            abort(401);
+            return redirect('/tickets')->with('type', 'danger')->with('message', 'Access Denied');
         }
 
         $request = $request->all();
@@ -135,7 +135,7 @@ class UsersController extends Controller
 
         $this->sendRoleMail($userId);
 
-        return redirect('/users');
+        return redirect('/users')->with('type', 'success')->with('message', 'Downgraded to User!');
     }
 
     /**

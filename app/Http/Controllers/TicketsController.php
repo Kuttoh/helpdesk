@@ -66,7 +66,7 @@ class TicketsController extends Controller
             new TicketCreated($ticket)
         );
 
-        return redirect($ticket->path());
+        return redirect($ticket->path())->with('message', 'Ticket created')->with('type', 'success');
     }
 
     /**
@@ -77,15 +77,13 @@ class TicketsController extends Controller
      */
     public function show(Ticket $ticket)
     {
-        if (auth()->check() == true) {
+        if (auth()->user()->role_id == 2 or $ticket->assigned_to == auth()->id() or $ticket->user_id == auth()->id()) {
 
             $user = $this->userRepository->getUserById(auth()->id());
 
             return view('tickets.show', compact(['ticket', 'user']));
-
         } else {
-
-            return view('tickets.show', compact('ticket'));
+            return redirect('/tickets')->with('message', 'Access Denied')->with('type', 'danger');
         }
     }
 
@@ -98,7 +96,7 @@ class TicketsController extends Controller
     public function edit(Ticket $ticket)
     {
         if (auth()->user()->id != $ticket->user_id) {
-            abort(403, 'You are not allowed to edit this ticket');
+            return redirect($ticket->path())->with('message', 'Access Denied')->with('type', 'danger');
         }
 
         $types = $this->ticketTypeRepository->getAllTicketTypes();
@@ -117,7 +115,7 @@ class TicketsController extends Controller
     {
         $this->ticketRepository->update($request->all(), $id);
 
-        return redirect('tickets');
+        return redirect('tickets')->with('type', 'success')->with('message', 'Updated Successfully!');
     }
 
     /**
@@ -133,17 +131,18 @@ class TicketsController extends Controller
 
     public function assign($id)
     {
-        if (auth()->user()->role_id != 2) {
-            abort(401);
-        }
-
         $users = $this->userRepository->getAllUsers();
 
         $ticket = $this->ticketRepository->getTicketById($id);
 
-        if ($ticket['ticket_status_id'] == 2) {
-            abort(403, 'Ticket is already closed');
+        if (auth()->user()->role_id != 2) {
+            return redirect( $ticket->path())->with('message', 'Access Denied')->with('type', 'danger');
         }
+
+        if ($ticket['ticket_status_id'] == 2) {
+            return redirect( $ticket->path())->with('message', 'Ticket is already closed')->with('type', 'danger');
+        }
+
         return view('tickets.assign', compact(['users', 'ticket']));
     }
 

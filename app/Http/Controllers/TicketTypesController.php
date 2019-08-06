@@ -27,7 +27,7 @@ class TicketTypesController extends Controller
     public function index()
     {
         if ( auth()->user()->role_id != 2){
-            abort(401);
+            return redirect('/tickets')->with('type', 'danger')->with('message', 'Access Denied!');
         }
 
        $ticketTypes = $this->ticketTypeRepository->getAllTicketTypes();
@@ -59,7 +59,7 @@ class TicketTypesController extends Controller
 
         $this->ticketTypeRepository->save($request->all());
 
-        return redirect('/ticketTypes');
+        return redirect('/ticketTypes')->with('type', 'success')->with('message', 'Ticket Type Created!');
     }
 
     /**
@@ -77,7 +77,7 @@ class TicketTypesController extends Controller
     public function edit(TicketType $ticketType)
     {
         if (auth()->user()->role_id != 2) {
-            abort(401);
+            return redirect('/tickets')->with('type', 'danger')->with('message', 'Access Denied!');
         }
         return view('ticketTypes.edit', compact('ticketType'));
     }
@@ -91,9 +91,13 @@ class TicketTypesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name' => 'required|unique:ticket_types,name',
+        ]);
+
         $this->ticketTypeRepository->update($request->all(), $id);
 
-        return redirect('ticketTypes');
+        return redirect('ticketTypes')->with('type', 'success')->with('message', 'Ticket Type updated!');
     }
 
     /**
@@ -105,17 +109,17 @@ class TicketTypesController extends Controller
     public function destroy($id)
     {
         if (auth()->user()->role_id != 2) {
-            abort(401);
+            return redirect('/tickets')->with('type', 'danger')->with('message', 'Access Denied!');
         }
 
         $typeTypeInUse = Ticket::where('ticket_type_id', $id)->first();
 
         if ($typeTypeInUse){
-            abort (403, 'Ticket type in use');
+            return redirect('/ticketTypes')->with('type', 'warning')->with('message', 'Ticket Type in use!');
         }
 
         $this->ticketTypeRepository->delete($id);
 
-        return redirect('ticketTypes');
+        return redirect('ticketTypes')->with('type', 'success')->with('message', 'Ticket Type deleted!');
     }
 }
