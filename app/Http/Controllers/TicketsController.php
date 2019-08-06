@@ -30,7 +30,7 @@ class TicketsController extends Controller
 
         $this->userRepository = $userRepository;
 
-        $this->middleware('auth');
+        $this->middleware(['auth', 'verified']);
     }
 
     public function index()

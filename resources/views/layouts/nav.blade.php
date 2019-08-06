@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-                @if(auth()->check())
+                @if(auth()->check() and auth()->user()->email_verified_at)
                     <li class="nav-item">
                         <a href="/tickets" class="dropdown-item">Tickets</a>
                     </li>
