@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RoleAssigned;
 use App\Repositories\UserRepository;
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller
 {
-    protected $userRepository;
+    protected $userRepository, $roleRepository;
 
     public function __construct(UserRepository $userRepository)
     {
@@ -115,6 +118,8 @@ class UsersController extends Controller
 
         $this->userRepository->postMakeEngineer($request, $userId);
 
+        $this->sendRoleMail($userId);
+
         return redirect('/users');
     }
 
@@ -128,6 +133,22 @@ class UsersController extends Controller
 
         $this->userRepository->postMakeUser($request, $userId);
 
+        $this->sendRoleMail($userId);
+
         return redirect('/users');
+    }
+
+    /**
+     * @param $userId
+     */
+    protected function sendRoleMail($userId): void
+    {
+        $user = $this->userRepository->getUserById($userId);
+
+        Mail::to($user->email)
+            ->cc('ithelpdesk@cytonn.com')
+            ->queue(
+                new RoleAssigned($user)
+            );
     }
 }
