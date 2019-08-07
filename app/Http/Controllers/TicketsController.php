@@ -159,37 +159,25 @@ class TicketsController extends Controller
         return redirect('tickets/'. $ticketId);
     }
 
-    public function storeTake(Request $request, $ticketId)
+    public function storeTake($ticketId)
     {
-        $request = $request->all();
 
-        $this->ticketRepository->postTake($request, $ticketId);
+        $this->ticketRepository->postTake($ticketId);
 
         return redirect('tickets/'. $ticketId);
     }
 
-    public function closeStatus(Request $request, $ticketId)
+    public function closeStatus($ticketId)
     {
-        $request = $request->all();
 
-        $this->ticketRepository->closeTicket($request, $ticketId);
-
-        $ticket = $this->ticketRepository->getTicketById($ticketId);
-
-        Mail::to($ticket->creator->email)
-            ->cc('ithelpdesk@cytonn.com')
-            ->queue(
-                new TicketClosed($ticket)
-            );
+        $this->ticketRepository->closeTicket($ticketId);
 
         return redirect('tickets/' . $ticketId);
     }
 
-    public function openStatus(Request $request, $ticketId)
+    public function openStatus($ticketId)
     {
-        $request = $request->all();
-
-        $this->ticketRepository->openTicket($request, $ticketId);
+        $this->ticketRepository->openTicket($ticketId);
 
         $ticket = $this->ticketRepository->getTicketById($ticketId);
 

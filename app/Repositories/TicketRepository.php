@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Mail\TicketAssigned;
+use App\Mail\TicketClosed;
 use App\Mail\TicketEdited;
 use App\Ticket;
 use Carbon\Carbon;
@@ -88,7 +89,7 @@ class TicketRepository
         return redirect($ticket->path())->with('type', 'success')->with('message', 'Assigned Successfully!');
     }
 
-    public function postTake($input, $id)
+    public function postTake($id)
     {
         $ticket = $this->getTicketById($id);
 
@@ -125,7 +126,7 @@ class TicketRepository
     }
 
 
-    public function closeTicket($input, $id)
+    public function closeTicket($id)
     {
         $ticket = $this->getTicketById($id);
 
@@ -143,10 +144,16 @@ class TicketRepository
             'closed_at' => Carbon::now()
             ]);
 
+        Mail::to($ticket->creator->email)
+            ->cc('ithelpdesk@cytonn.com')
+            ->queue(
+                new TicketClosed($ticket)
+            );
+
         return redirect($ticket->path())->with('type', 'success')->with('message', 'Closed Successfully!');
     }
 
-    public function openTicket($input, $id)
+    public function openTicket($id)
     {
         $ticket = $this->getTicketById($id);
 
