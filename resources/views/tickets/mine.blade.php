@@ -8,7 +8,8 @@
             <table class="table table-responsive-md table-striped">
                 <thead class="thead-dark">
                 <tr>
-                    <th scope="col">Type Name</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Type</th>
                     <th scope="col">Creator</th>
                     <th scope="col">Date Created</th>
                     <th scope="col">Action</th>
@@ -17,6 +18,7 @@
                 <tbody>
                 @foreach($tickets as $ticket)
                     <tr>
+                        <td>{{ $ticket->subject }}</td>
                         <td>{{ $ticket->type->name }}</td>
                         <td>{{ $ticket->creator->firstname }} {{ $ticket->creator->lastname }}</td>
                         <td>{{ $ticket->created_at }}</td>
