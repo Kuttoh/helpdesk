@@ -19,8 +19,6 @@ class TicketsTest extends TestCase
     {
         parent::setUp();
 
-        $this->withoutExceptionHandling();
-
         $this->ticketRepo = new TicketRepository();
 
         $this->faker = Factory::create();

@@ -10,10 +10,6 @@ class ManageTicketTypesTest extends TestCase
 {
     use DatabaseTransactions;
 
-    protected $ticketRepo;
-    protected $userRepo;
-    protected $faker;
-
     protected function setUp(): void
     {
         parent::setUp();
