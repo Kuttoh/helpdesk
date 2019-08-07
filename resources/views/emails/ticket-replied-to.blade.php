@@ -8,7 +8,7 @@
 
 <strong>Comment:</strong> {{ $reply->body }}
 
-<strong>Commented By:</strong> {{ $ticket->creator->firstname }} {{ $ticket->creator->lastname }}
+<strong>Commented By:</strong> {{ auth()->user()->firstname }} {{ auth()->user()->lastname }}
 
 @component('mail::button', ['url' => 'http://helpdesk.appp/tickets/'. $ticket->id])
     View Ticket
