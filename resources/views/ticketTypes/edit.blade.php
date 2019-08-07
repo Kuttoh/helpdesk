@@ -21,16 +21,15 @@
 
                         <form method="post" action="{{ $ticketType->path() }}/update">
                             {{ csrf_field() }}
-
                             <div class="form-group">
                                 <label for="name">Name:</label>
-                                <input name="name" type="text" class="form-control" id="name" required value="{{ $ticketType->name }}">
+                                <input name="name" type="text" class="form-control" id="name" required
+                                       value="{{ $ticketType->name }}">
                             </div>
 
                             <div class="form-group">
                                 <button type="submit" class="btn btn-outline-dark">Edit</button>
                             </div>
-
                         </form>
 
                     </div>

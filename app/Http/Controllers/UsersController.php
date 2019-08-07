@@ -27,7 +27,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->role_id != 2){
+        if (auth()->user()->role_id != 2) {
             return redirect('/tickets')->with('type', 'danger')->with('message', 'Access Denied');
         }
 
@@ -49,7 +49,7 @@ class UsersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -60,7 +60,7 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -70,7 +70,7 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
-        if (auth()->user()->role_id != 2){
+        if (auth()->user()->role_id != 2) {
             return redirect('/tickets')->with('type', 'danger')->with('message', 'Access Denied');
         }
 
@@ -80,13 +80,13 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -100,7 +100,7 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -110,7 +110,7 @@ class UsersController extends Controller
 
     public function makeEngineer(Request $request, $userId)
     {
-        if (auth()->user()->role_id != 2){
+        if (auth()->user()->role_id != 2) {
             return redirect('/tickets')->with('type', 'danger')->with('message', 'Access Denied');
         }
 
@@ -125,7 +125,7 @@ class UsersController extends Controller
 
     public function makeUser(Request $request, $userId)
     {
-        if (auth()->user()->role_id != 2){
+        if (auth()->user()->role_id != 2) {
             return redirect('/tickets')->with('type', 'danger')->with('message', 'Access Denied');
         }
 

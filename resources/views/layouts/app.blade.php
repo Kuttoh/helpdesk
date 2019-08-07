@@ -19,13 +19,12 @@
 <body>
 
 <div id="app">
-
-        @include('layouts.nav')
-        @yield('content')
+    @include('layouts.nav')
+    @yield('content')
     <flash message="{{session('message')}}" type="{{session('type')}}"></flash>
 </div>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+<!-- Scripts -->
+<script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

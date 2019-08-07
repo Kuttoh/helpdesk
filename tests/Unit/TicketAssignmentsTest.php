@@ -3,10 +3,8 @@
 namespace Tests\Unit;
 
 use App\Repositories\TicketRepository;
-use App\Repositories\UserRepository;
 use App\Ticket;
 use App\User;
-use Faker\Factory;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
@@ -65,7 +63,7 @@ class TicketAssignmentsTest extends TestCase
         $this->signIn($user);
 
         $ticket = (factory(Ticket::class)->create([
-            'user_id'=> $user->id
+            'user_id' => $user->id
         ]))->toArray();
 
         $this->ticketRepo->postTake($ticket['id']);

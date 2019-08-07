@@ -43,6 +43,6 @@ class RepliesController extends Controller
                 );
         }
 
-        return redirect('tickets/'. $ticketId);
+        return redirect('tickets/' . $ticketId);
     }
 }

@@ -1,13 +1,13 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
+
 use App\User;
 use App\Ticket;
 use App\TicketType;
 use App\Reply;
 use App\Role;
 use App\TicketStatus;
-use App\TicketAssignee;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 

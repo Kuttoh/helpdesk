@@ -3,9 +3,7 @@
 namespace Tests\Unit;
 
 use App\Repositories\TicketRepository;
-use App\Ticket;
 use App\TicketType;
-use Carbon\Carbon;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;

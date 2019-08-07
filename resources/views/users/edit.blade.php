@@ -24,17 +24,20 @@
 
                             <div class="form-group">
                                 <label for="firstname">First Name:</label>
-                                <input name="firstname" type="text" class="form-control" id="firstname" required value="{{ $user->firstname }}">
+                                <input name="firstname" type="text" class="form-control" id="firstname" required
+                                       value="{{ $user->firstname }}">
                             </div>
 
                             <div class="form-group">
                                 <label for="lastname">Last Name:</label>
-                                <input name="lastname" type="text" class="form-control" id="lastname" required value="{{ $user->lastname }}">
+                                <input name="lastname" type="text" class="form-control" id="lastname" required
+                                       value="{{ $user->lastname }}">
                             </div>
 
                             <div class="form-group">
                                 <label for="email">E-mail:</label>
-                                <input name="email" type="text" class="form-control" id="email" required value="{{ $user->email }}">
+                                <input name="email" type="text" class="form-control" id="email" required
+                                       value="{{ $user->email }}">
                             </div>
 
                             <div class="form-group">

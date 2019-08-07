@@ -26,11 +26,11 @@ class TicketTypesController extends Controller
 
     public function index()
     {
-        if ( auth()->user()->role_id != 2){
+        if (auth()->user()->role_id != 2) {
             return redirect('/tickets')->with('type', 'danger')->with('message', 'Access Denied!');
         }
 
-       $ticketTypes = $this->ticketTypeRepository->getAllTicketTypes();
+        $ticketTypes = $this->ticketTypeRepository->getAllTicketTypes();
 
         return view('ticketTypes.index', compact('ticketTypes'));
     }
@@ -48,7 +48,7 @@ class TicketTypesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -65,7 +65,7 @@ class TicketTypesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -85,8 +85,8 @@ class TicketTypesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -103,7 +103,7 @@ class TicketTypesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -114,7 +114,7 @@ class TicketTypesController extends Controller
 
         $typeTypeInUse = Ticket::where('ticket_type_id', $id)->first();
 
-        if ($typeTypeInUse){
+        if ($typeTypeInUse) {
             return redirect('/ticketTypes')->with('type', 'warning')->with('message', 'Ticket Type in use!');
         }
 

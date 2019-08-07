@@ -37,7 +37,7 @@ class TicketsController extends Controller
     {
         $tickets = $this->ticketRepository->orderedTickets();
 
-        return view('tickets.index',  compact('tickets'));
+        return view('tickets.index', compact('tickets'));
     }
 
     /**
@@ -55,7 +55,7 @@ class TicketsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -72,7 +72,7 @@ class TicketsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show(Ticket $ticket)
@@ -90,7 +90,7 @@ class TicketsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Ticket $ticket)
@@ -107,8 +107,8 @@ class TicketsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -121,7 +121,7 @@ class TicketsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -136,11 +136,11 @@ class TicketsController extends Controller
         $ticket = $this->ticketRepository->getTicketById($id);
 
         if (auth()->user()->role_id != 2) {
-            return redirect( $ticket->path())->with('message', 'Access Denied')->with('type', 'danger');
+            return redirect($ticket->path())->with('message', 'Access Denied')->with('type', 'danger');
         }
 
         if ($ticket['ticket_status_id'] == 2) {
-            return redirect( $ticket->path())->with('message', 'Ticket is already closed')->with('type', 'danger');
+            return redirect($ticket->path())->with('message', 'Ticket is already closed')->with('type', 'danger');
         }
 
         return view('tickets.assign', compact(['users', 'ticket']));
@@ -156,7 +156,7 @@ class TicketsController extends Controller
 
         $this->ticketRepository->postAssign($request, $ticketId);
 
-        return redirect('tickets/'. $ticketId);
+        return redirect('tickets/' . $ticketId);
     }
 
     public function storeTake($ticketId)
@@ -164,7 +164,7 @@ class TicketsController extends Controller
 
         $this->ticketRepository->postTake($ticketId);
 
-        return redirect('tickets/'. $ticketId);
+        return redirect('tickets/' . $ticketId);
     }
 
     public function closeStatus($ticketId)
@@ -185,7 +185,7 @@ class TicketsController extends Controller
                 new TicketOpened($ticket)
             );
 
-        return redirect('tickets/'. $ticketId);
+        return redirect('tickets/' . $ticketId);
     }
 
     public function mine()
