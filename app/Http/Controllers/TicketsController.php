@@ -169,7 +169,6 @@ class TicketsController extends Controller
 
     public function closeStatus($ticketId)
     {
-
         $this->ticketRepository->closeTicket($ticketId);
 
         return redirect('tickets/' . $ticketId);
