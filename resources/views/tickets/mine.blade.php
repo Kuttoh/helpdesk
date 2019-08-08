@@ -24,11 +24,11 @@
                         <td>{{ $ticket->created_at }}</td>
                         <td>
                             <a href="{{$ticket->path()}}">
-                                <button type="submit" class="btn btn-outline-dark">View</button>
+                                <button type="submit" class="btn btn-outline-dark"><i class="fa fa-eye"></i> </button>
                             </a>
                             @if($ticket->ticket_status_id != 2 and $ticket->creator->id == auth()->id())
                                 <a href="{{$ticket->path()}}/edit">
-                                    <button type="submit" class="btn btn-outline-info">Edit</button>
+                                    <button type="submit" class="btn btn-outline-info"><i class="fa fa-edit"></i> </button>
                                 </a>
                             @endif
                         </td>

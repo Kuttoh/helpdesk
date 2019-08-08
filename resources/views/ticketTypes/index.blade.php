@@ -8,7 +8,7 @@
         </div>
         <div class="row justify-content-center">
             <h4>Ticket Types</h4>
-            <a href="/ticketTypes/create" class="btn btn-outline-dark float-right ml-auto mb-1">Create New</a>
+            <a href="/ticketTypes/create" class="btn btn-outline-success float-right ml-auto mb-1">Create New</a>
             <table class="table table-responsive-md table-striped">
                 <thead class="thead-dark">
                 <tr>
@@ -23,8 +23,8 @@
                         <td>{{ $ticketType->name }}</td>
                         <td>{{ $ticketType->created_at }}</td>
                         <td>
-                            <a class="btn btn-outline-info" href="{{ $ticketType->path() }}/edit">Edit</a>
-                            <a class="btn btn-outline-danger" href="{{ $ticketType->path() }}/delete">Delete</a>
+                            <a class="btn btn-outline-info" href="{{ $ticketType->path() }}/edit"><i class="fa fa-edit"></i> </a>
+                            <a class="btn btn-outline-danger" href="{{ $ticketType->path() }}/delete"><i class="fa fa-trash"></i> </a>
                         </td>
                     </tr>
                 @endforeach
