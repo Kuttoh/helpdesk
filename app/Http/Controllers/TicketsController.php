@@ -72,7 +72,7 @@ class TicketsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param Ticket $ticket
      * @return \Illuminate\Http\Response
      */
     public function show(Ticket $ticket)
