@@ -10,7 +10,7 @@ class Ticket extends Model
 
     protected $guarded =['id'];
 
-    protected $with = ['type', 'creator', 'status', 'replies', 'assignedTo'];
+//    protected $with = ['type', 'creator', 'status', 'replies', 'assignedTo'];
 
     protected static function boot()
     {

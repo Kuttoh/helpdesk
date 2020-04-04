@@ -10,6 +10,8 @@ class Reply extends Model
 
     protected $guarded = ['id'];
 
+    protected $with = ['owner'];
+
     public function owner()
     {
         return $this->belongsTo(User::class, 'user_id');
