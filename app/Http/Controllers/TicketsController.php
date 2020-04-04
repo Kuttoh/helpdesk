@@ -181,6 +181,7 @@ class TicketsController extends Controller
         $ticket = $this->ticketRepository->getTicketById($ticketId);
 
         Mail::to('ithelpdesk@cytonn.com')
+            ->cc($ticket->assignedTo->email)
             ->queue(
                 new TicketOpened($ticket)
             );

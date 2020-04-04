@@ -1711,11 +1711,15 @@ __webpack_require__.r(__webpack_exports__);
       show: false
     };
   },
+  // watch: {
+  //     message(){
+  //         this.flash(this.message);
+  //     }
+  // },
   created: function created() {
     if (this.message) {
       this.flash(this.message);
-    } // window.events.$on('flash', message => this.flash(message));
-
+    }
   },
   methods: {
     flash: function flash(message) {
@@ -6192,7 +6196,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.alert-flash{\n    position: fixed;\n    right: 25px;\n    top: 25px;\n}\n", ""]);
+exports.push([module.i, "\n.alert-flash {\n    position: fixed;\n    right: 25px;\n    top: 25px;\n}\n", ""]);
 
 // exports
 

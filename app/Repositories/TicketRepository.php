@@ -159,7 +159,7 @@ class TicketRepository
 
         $ticket->update([
             'ticket_status_id' => 1,
-            'assigned_to' => null,
+//            'assigned_to' => null,
             'updated_at' => Carbon::now(),
             'closed_at' => null,
         ]);

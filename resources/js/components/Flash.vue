@@ -8,23 +8,27 @@
     export default {
         props: ['message', 'type'],
 
-        data(){
+        data() {
             return {
-                body:'',
+                body: '',
                 show: false
             }
         },
 
+        // watch: {
+        //     message(){
+        //         this.flash(this.message);
+        //     }
+        // },
+
         created() {
-            if (this.message){
+            if (this.message) {
                 this.flash(this.message);
             }
-
-            // window.events.$on('flash', message => this.flash(message));
         },
 
         methods: {
-            flash(message){
+            flash(message) {
                 this.body = message;
                 this.show = true;
 
@@ -41,7 +45,7 @@
 </script>
 
 <style>
-    .alert-flash{
+    .alert-flash {
         position: fixed;
         right: 25px;
         top: 25px;
